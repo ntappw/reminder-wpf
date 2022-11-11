@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Reminder.ViewModels;
 
 namespace Reminder
 {
@@ -23,6 +24,7 @@ namespace Reminder
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = new MainPageViewModel();
         }
     }
 }
