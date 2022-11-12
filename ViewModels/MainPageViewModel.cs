@@ -15,14 +15,14 @@ namespace Reminder.ViewModels
     {
         private readonly ObservableCollection<ReminderModel> _reminders;
 
-        private ICommand addCommand { get; }
-        private ICommand deleteCommand { get; }
+
+
+
 
         public MainPageViewModel()
         {
-
-            addCommand = new AddCommand();
-            deleteCommand = new DeleteCommand();
+            AddCommand = new AddCommand();
         }
+        public ICommand AddCommand { get; }
     }
 }
