@@ -24,5 +24,10 @@ namespace Reminder.Views
         {
             InitializeComponent();
         }
+
+        private void ListView_SelectionChanged()
+        {
+
+        }
     }
 }

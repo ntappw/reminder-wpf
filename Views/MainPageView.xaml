@@ -4,58 +4,133 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Reminder.Views"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              d:DesignHeight="595" d:DesignWidth="1195"
-             Background="DarkSlateGray">
+             Background="Black">
     <Grid
         Margin="5"
-        Background="AliceBlue">
+        Background="AliceBlue"
+        VerticalAlignment="Stretch">
         <Grid.RowDefinitions>
-            <RowDefinition Height="60"/>
-            <RowDefinition Height="auto"/>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="0.8*"/>
+            <RowDefinition Height="4"/>
         </Grid.RowDefinitions>
 
         <Grid 
             Grid.Row="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="50"/>
-                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
             <Button
                 Grid.Column="0"
-                Content="+"
                 Width="40"
                 Height="40"
                 Style="{DynamicResource MaterialDesignFloatingActionMiniButton}"
                 Background="Black"
                 BorderBrush="Black"
-                Cursor="Hand"/>
+                Cursor="Hand"
+                Command="{Binding AddCommand}">
+
+                <materialDesign:PackIcon 
+                    Kind="TooltipPlusOutline" 
+                    Width="25"
+                    Height="25"/>
+            </Button>
         </Grid>
 
         <Grid
             Grid.Row="1">
-            <ListView 
-                Style="{DynamicResource MaterialDesignListView}">
+            <ListView Style="{DynamicResource MaterialDesignListView}">
                 <ListItem/>
                 <ListItem/>
                 <ListItem/>
+
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
+
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel 
-                            Orientation="Horizontal"
-                            VerticalAlignment="Center">
-                            <Label 
-                                    Content="Testing message!"/>
-                                <Label 
-                                    Content="21.11.2022"/>
-                                <Button Content="Delete" Cursor="Hand"/>
-                        </StackPanel>
+                        <Grid HorizontalAlignment="Stretch" Height="50">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="0.2*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock
+                                    Grid.Column="0"
+                                    Text="Testing Message!"
+                                    VerticalAlignment="Center"
+                                   
+                                    Style="{StaticResource MaterialDesignHeadline6TextBlock}"/>
+
+                            <TextBlock 
+                                Grid.Column="1"
+                                Text="27.05.2023 at 13:05"
+                                VerticalAlignment="Center"
+                                
+                                Style="{StaticResource MaterialDesignHeadline6TextBlock}"/>
+
+                            <StackPanel 
+                                    Grid.Column="2"
+                                    VerticalAlignment="Center"
+                                    Orientation="Horizontal"
+                                    HorizontalAlignment="Center">
+
+                                <Button 
+                                    Cursor="Hand"
+                                    Height="35"
+                                    Width="35"
+                                    Background="Black"
+                                    BorderBrush="Black"
+                                    Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
+                                    ToolTip="Изменить"
+                                    Command="{Binding EditCommand}">
+
+                                    <materialDesign:PackIcon 
+                                        Kind="Pencil" 
+                                        Width="25"
+                                        Height="25"/>
+                                </Button>
+
+                                <Button 
+                                        Cursor="Hand"
+                                        Height="35"
+                                        Width="35"
+                                        Margin="10 0 0 0"
+                                        Background="Black"
+                                        BorderBrush="Black"
+                                        Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
+                                        ToolTip="Удалить"
+                                        Command="{Binding DeleteCommand}">
+
+                                    <materialDesign:PackIcon 
+                                            Kind="Delete" 
+                                            Width="25"
+                                            Height="25"/>
+                                </Button>
+                            </StackPanel>
+                        </Grid>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
         </Grid>
 
+        
 
+        <ProgressBar
+            Grid.Row="2"
+            VerticalAlignment="Bottom"
+            Height="4"
+            Background="YellowGreen"
+            Foreground="#FF40A40B"
+            Value="{Binding ProgressBarValue, UpdateSourceTrigger=PropertyChanged}"/>
     </Grid>
 </UserControl>
